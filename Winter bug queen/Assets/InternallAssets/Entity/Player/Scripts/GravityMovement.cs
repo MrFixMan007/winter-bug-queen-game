@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class GravityMovement : IGravityFallable
 {
-    private CharacterController _characterController;
+    private readonly CharacterController _characterController;
     private float _currentAttractionCharacter = 0;
-    public float GravityForce;
+    private float _gravityForce;
 
-    public GravityMovement(float gravityForce)
+    public GravityMovement(float gravityForce, CharacterController characterController)
     {
-        GravityForce = gravityForce;
+        _gravityForce = gravityForce;
+        _characterController = characterController;
     }
 
     public void Fall()
     {
         if (!_characterController.isGrounded)
         {
-            _currentAttractionCharacter -= GravityForce * Time.deltaTime;
+            _currentAttractionCharacter -= _gravityForce * Time.deltaTime;
             _characterController.Move(new Vector3(0, _currentAttractionCharacter, 0) * Time.deltaTime);
         }
         else
@@ -24,11 +25,9 @@ public class GravityMovement : IGravityFallable
         }
     }
 
-    public void SetCharacterController(CharacterController characterController)
+    public float GravityScale
     {
-        if (_characterController == null)
-        {
-            _characterController = characterController;
-        }
+        get => _gravityForce;
+        set => _gravityForce = value;
     }
 }

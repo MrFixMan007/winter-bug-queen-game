@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ITargetable
 {
     [SerializeField] private CharacterController _characterController;
 
@@ -10,17 +10,18 @@ public class Player : MonoBehaviour
     private InputHandler _inputHandler;
     private EntityMovement _entityMovement;
 
+    public Transform Position => transform;
+
     private void Awake()
     {
-        _entityMovement = new EntityMovement(15, 15, gameObject);
         _inputHandler = new InputHandler();
     }
 
     [Inject]
-    public void Constructor(IGravityFallable iGravityFallable)
+    public void Constructor(PlayerConfig playerConfig)
     {
-        iGravityFallable.SetCharacterController(_characterController);
-        _gravityMovement = iGravityFallable;
+        _entityMovement = new EntityMovement(playerConfig.RotationSpeed, playerConfig.MoveSpeed, gameObject);
+        _gravityMovement = new GravityMovement(playerConfig.GravityForce, _characterController);
     }
 
     private void OnValidate()
@@ -31,6 +32,11 @@ public class Player : MonoBehaviour
     private void Update()
     {
         _gravityMovement.Fall();
+        Move();
+    }
+
+    private void Move()
+    {
         _entityMovement.Move(
             moveDirection: new Vector3(_inputHandler.MoveDirection.x, 0, _inputHandler.MoveDirection.y));
         _entityMovement.Rotate(rotateDirection: new Vector3(_inputHandler.MoveDirection.x, 0,
