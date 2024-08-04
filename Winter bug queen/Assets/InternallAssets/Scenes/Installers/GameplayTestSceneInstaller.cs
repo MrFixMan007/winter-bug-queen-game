@@ -18,6 +18,7 @@ public class GameplayTestSceneInstaller : MonoInstaller
 
         Container.Bind<IMoveable>().FromInstance(player.EntityMovement);
         Container.Bind<IRotateable>().FromInstance(player.EntityMovement);
+        Container.Bind<ITargetable>().FromInstance(player);
         
         Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle();
 
