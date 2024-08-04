@@ -1,16 +1,22 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
-public class InputHandler
+public class InputHandler : ITickable, IDisposable, IInitializable
 {
     private PlayerInputActions _playerControls;
     private Vector2 _moveDirection;
-    public Vector2 MoveDirection => _moveDirection;
-    
+    private IMoveable _moveablePlayer;
+    private IRotateable _rotateablePlayer;
+
     private InputAction _move;
 
-    public InputHandler()
+    [Inject]
+    private void Construct(IMoveable moveable, IRotateable rotateable)
     {
+        _moveablePlayer = moveable;
+        _rotateablePlayer = rotateable;
         _playerControls = new PlayerInputActions();
         EnableActions();
     }
@@ -23,13 +29,26 @@ public class InputHandler
         _move.Enable();
     }
 
-    public void DisableActions()
+    private void OnMove(InputAction.CallbackContext callbackContext)
+    {
+        _moveDirection = callbackContext.ReadValue<Vector2>();
+    }
+
+    public void Tick()
+    {
+        _moveablePlayer.Move(
+            moveDirection: new Vector3(_moveDirection.x, 0, _moveDirection.y));
+        _rotateablePlayer.Rotate(rotateDirection: new Vector3(_moveDirection.x, 0,
+            _moveDirection.y));
+    }
+
+    public void Dispose()
     {
         _move.Disable();
     }
 
-    private void OnMove(InputAction.CallbackContext callbackContext)
+    public void Initialize()
     {
-        _moveDirection = callbackContext.ReadValue<Vector2>();
+        _playerControls = new PlayerInputActions();
     }
 }
