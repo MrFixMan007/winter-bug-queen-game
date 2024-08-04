@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/PlayerConfig")]
-public class PlayerConfig : ScriptableObject
+[CreateAssetMenu(fileName = "EntityConfig", menuName = "Configs/EntityConfig")]
+public class EntityConfig : ScriptableObject
 {
     [field: SerializeField, Range(0, 100), Header("Movement")] public float MoveSpeed { get; private set; }
     [field: SerializeField, Range(0, 100)] public float RotationSpeed { get; private set; }

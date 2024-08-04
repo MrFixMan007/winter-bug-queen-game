@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, ITargetable
     public Transform Position => transform;
 
     [Inject]
-    public void Constructor(PlayerConfig playerConfig)
+    public void Constructor(EntityConfig playerConfig)
     {
         EntityMovement = new EntityMovement(playerConfig.RotationSpeed, playerConfig.MoveSpeed, gameObject);
         _gravityMovement = new GravityMovement(playerConfig.GravityForce, _characterController);

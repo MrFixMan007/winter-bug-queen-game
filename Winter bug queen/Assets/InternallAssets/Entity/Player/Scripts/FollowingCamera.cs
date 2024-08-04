@@ -11,13 +11,17 @@ public class FollowingCamera : MonoBehaviour
     [SerializeField, Range(0, 100)] private float _height;
     [SerializeField, Range(0, 100)] private float _rearDistance;
     [SerializeField, Range(0, 100)] private float _lookOffset;
-    
+
     private Vector3 _currentVector;
 
     [Inject]
-    private void Construct(ITargetable targetable)
+    private void Construct(ITargetable targetable, CameraConfig cameraConfig)
     {
         _target = targetable;
+        _returnSpeed = cameraConfig.ReturnSpeed;
+        _height = cameraConfig.Height;
+        _rearDistance = cameraConfig.RearDistance;
+        _lookOffset = cameraConfig.LookOffset;
     }
 
     private void Start()
