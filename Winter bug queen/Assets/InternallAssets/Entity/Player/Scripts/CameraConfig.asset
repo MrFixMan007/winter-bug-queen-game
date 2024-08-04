@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971f0ac57f4349439fab741edca5a980, type: 3}
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
-  ReturnSpeed: 0
-  Height: 0
-  RearDistance: 0
+  ReturnSpeed: 15
+  Height: 5
+  RearDistance: 5
   LookOffset: 0
