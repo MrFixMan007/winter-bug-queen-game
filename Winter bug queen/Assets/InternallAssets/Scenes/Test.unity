@@ -2553,7 +2553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cdd672b5fb467bb6f5fc15c0755f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 3453791121637562023, guid: 059780870422e4b4f9c2bbb4eb8ce5bc, type: 3}
+  _playerPrefab: {fileID: -2304138314364662392, guid: 34eb6b33b8b9779409b754af06382f14, type: 3}
   _playerSpawnPoint: {fileID: 1520366961}
   _playerConfig: {fileID: 11400000, guid: 3578e6f10614bf344a6c491a66fbd1a9, type: 2}
   _cameraConfig: {fileID: 11400000, guid: eddbd66feba2baf4f92c46f7daa4f85d, type: 2}
