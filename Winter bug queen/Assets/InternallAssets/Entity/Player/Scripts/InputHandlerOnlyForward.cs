@@ -10,21 +10,24 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
 
     private IMoveable _moveablePlayer;
     private IRotateable _rotateablePlayer;
+    private ICombat _combat;
 
     private PlayerMovementDinamicTreeTwoDimensionAnimation _playerMovementAnimation;
 
     private InputAction _move;
     private InputAction _shift;
+    private InputAction _mouse;
 
     private bool _shiftPressed;
     private bool _forwardPressed;
 
     [Inject]
     private void Construct(IMoveable moveable, IRotateable rotateable,
-        PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation)
+        PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation, ICombat combat)
     {
         _moveablePlayer = moveable;
         _rotateablePlayer = rotateable;
+        _combat = combat;
         _playerControls = new PlayerInputActions();
         _playerMovementAnimation = playerMovementAnimation;
         EnableActions();
@@ -41,6 +44,10 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
         _shift.performed += OnShiftPressed;
         _shift.canceled += OnShiftCanceled;
         _shift.Enable();
+
+        _mouse = _playerControls.Player.Fire;
+        _mouse.performed += OnMouseClick;
+        _mouse.Enable();
     }
 
     private void OnMove(InputAction.CallbackContext callbackContext)
@@ -67,6 +74,33 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
         _shiftPressed = false;
         _moveablePlayer.SetRun(_shiftPressed);
     }
+    
+    private void OnMouseClick(InputAction.CallbackContext callbackContext)
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            if (_combat.LightAttack())
+            {
+                Debug.Log("Ударил слегка");
+            }
+            else
+            {
+                Debug.Log("Устал, надо подождать");
+            }
+        }
+
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            if (_combat.StrongAttack())
+            {
+                Debug.Log("Ударил потяжелее");
+            }
+            else
+            {
+                Debug.Log("Устал очень, надо подождать");
+            }
+        }
+    }
 
     public void Tick()
     {
@@ -83,5 +117,6 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
     {
         _move.Disable();
         _shift.Disable();
+        _mouse.Disable();
     }
 }

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class SimpleHealthSystem : IDamageable
 {
     private float _hp;
@@ -20,6 +22,7 @@ public class SimpleHealthSystem : IDamageable
     {
         _hp -= hp;
         if (_hp < 0) _hp = 0;
+        Debug.LogWarning("Мне больна!" + _hp);
     }
 
     public void Heal(float hp)

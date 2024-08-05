@@ -2730,6 +2730,9 @@ MonoBehaviour:
   _slaveCommonBeetleConfig: {fileID: 11400000, guid: 0e19ec1afa2309e419c98b200d883179, type: 2}
   _cerebralCommonBeetleConfig: {fileID: 11400000, guid: d5d72167c23f23c4f8e4d5edd1b3dfc5, type: 2}
   _cameraConfig: {fileID: 11400000, guid: eddbd66feba2baf4f92c46f7daa4f85d, type: 2}
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
