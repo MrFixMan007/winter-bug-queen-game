@@ -305,7 +305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5902691006841909184, guid: 1e9f1e653a7db0540a820bb9f731fd32, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000047683716
+      value: 6.65
       objectReference: {fileID: 0}
     - target: {fileID: 5902691006841909184, guid: 1e9f1e653a7db0540a820bb9f731fd32, type: 3}
       propertyPath: m_LocalPosition.z
@@ -362,7 +362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4918914717967088398, guid: 78ec5825da99f194f8bd1596b5c50f68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
+      value: 6.649999
       objectReference: {fileID: 0}
     - target: {fileID: 4918914717967088398, guid: 78ec5825da99f194f8bd1596b5c50f68, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2608,7 +2608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5902691006841909184, guid: 1e9f1e653a7db0540a820bb9f731fd32, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.6499996
       objectReference: {fileID: 0}
     - target: {fileID: 5902691006841909184, guid: 1e9f1e653a7db0540a820bb9f731fd32, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2727,6 +2727,8 @@ MonoBehaviour:
   _playerPrefab: {fileID: -2304138314364662392, guid: 34eb6b33b8b9779409b754af06382f14, type: 3}
   _playerSpawnPoint: {fileID: 1520366961}
   _playerConfig: {fileID: 11400000, guid: 3578e6f10614bf344a6c491a66fbd1a9, type: 2}
+  _slaveCommonBeetleConfig: {fileID: 11400000, guid: 0e19ec1afa2309e419c98b200d883179, type: 2}
+  _cerebralCommonBeetleConfig: {fileID: 11400000, guid: d5d72167c23f23c4f8e4d5edd1b3dfc5, type: 2}
   _cameraConfig: {fileID: 11400000, guid: eddbd66feba2baf4f92c46f7daa4f85d, type: 2}
 --- !u!1 &963194225
 GameObject:

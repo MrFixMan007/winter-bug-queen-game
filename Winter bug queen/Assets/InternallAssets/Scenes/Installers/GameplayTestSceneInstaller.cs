@@ -6,12 +6,16 @@ public class GameplayTestSceneInstaller : MonoInstaller
     [SerializeField] private Player _playerPrefab;
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private EntityConfig _playerConfig;
+    [SerializeField] private EntityConfig _slaveCommonBeetleConfig;
+    [SerializeField] private EntityConfig _cerebralCommonBeetleConfig;
     private InputHandlerOnlyForward _inputHandler;
     [SerializeField] private CameraConfig _cameraConfig;
 
     public override void InstallBindings()
     {
-        Container.Bind<EntityConfig>().FromInstance(_playerConfig);
+        Container.Bind<EntityConfig>().WithId("PlayerConfig").FromInstance(_playerConfig);
+        Container.Bind<EntityConfig>().WithId("SlaveCommonBeetleConfig").FromInstance(_slaveCommonBeetleConfig);
+        Container.Bind<EntityConfig>().WithId("CerebralCommonBeetleConfig").FromInstance(_cerebralCommonBeetleConfig);
         Container.Bind<CameraConfig>().FromInstance(_cameraConfig);
 
         Player player =
