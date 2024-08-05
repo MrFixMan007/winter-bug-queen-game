@@ -7,14 +7,14 @@ public class Player : MonoBehaviour, ITargetable
     [SerializeField] private CharacterController _characterController;
 
     private IGravityFallable _gravityMovement;
-    public EntityMovement EntityMovement { get; private set; }
+    public EntityForwardMovement EntityMovement { get; private set; }
 
     public Transform Position => transform;
 
     [Inject]
     public void Constructor(EntityConfig playerConfig)
     {
-        EntityMovement = new EntityMovement(playerConfig.RotationSpeed, playerConfig.MoveSpeed, gameObject);
+        EntityMovement = new EntityForwardMovement(playerConfig.RotationSpeed, playerConfig.MoveSpeed, playerConfig.RunSpeed, gameObject);
         _gravityMovement = new GravityMovement(playerConfig.GravityForce, _characterController);
     }
 

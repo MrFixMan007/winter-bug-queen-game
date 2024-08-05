@@ -59,11 +59,13 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
     private void OnShiftPressed(InputAction.CallbackContext callbackContext)
     {
         _shiftPressed = true;
+        _moveablePlayer.SetRun(_shiftPressed);
     }
 
     private void OnShiftCanceled(InputAction.CallbackContext callbackContext)
     {
         _shiftPressed = false;
+        _moveablePlayer.SetRun(_shiftPressed);
     }
 
     public void Tick()

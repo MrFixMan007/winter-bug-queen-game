@@ -1,46 +1,38 @@
 using UnityEngine;
 
-public class EntityMovement : IMoveable, IRotateable
+public class EntityForwardMovement : IMoveable, IRotateable
 {
     public float RotateSpeed;
-    // {
-    //     get => RotateSpeed;
-    //     set
-    //     {
-    //         if (value > 0)
-    //         {
-    //             RotateSpeed = value;
-    //         }
-    //     }
-    // }
 
     public float MoveSpeed;
-    // {
-    //     get => MoveSpeed;
-    //     set
-    //     {
-    //         if (value > 0)
-    //         {
-    //             MoveSpeed = value;
-    //         }
-    //     }
-    // }
+    public float RunSpeed;
+
+    private bool _isRunning;
 
     private readonly CharacterController _characterController;
     private readonly GameObject _playerObject;
 
-    public EntityMovement(float rotateSpeed, float moveSpeed, GameObject gameObject)
+    public EntityForwardMovement(float rotateSpeed, float moveSpeed, float runSpeed, GameObject gameObject)
     {
         RotateSpeed = rotateSpeed;
         MoveSpeed = moveSpeed;
+        RunSpeed = runSpeed;
         _characterController = gameObject.GetComponent<CharacterController>();
         _playerObject = gameObject;
     }
 
     public void Move(Vector3 moveDirection)
     {
-        moveDirection *= MoveSpeed;
+        if (_isRunning) 
+            moveDirection *= RunSpeed;
+        else 
+            moveDirection *= MoveSpeed;
         _characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    public void SetRun(bool isRunning)
+    {
+        _isRunning = isRunning;
     }
 
     public void Rotate(Vector3 rotateDirection)

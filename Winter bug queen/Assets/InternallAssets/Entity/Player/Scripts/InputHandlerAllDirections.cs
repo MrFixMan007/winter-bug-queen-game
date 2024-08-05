@@ -9,7 +9,6 @@ public class InputHandlerAllDirections : ITickable, IDisposable, IInput
     private Vector2 _moveDirection;
     
     private IMoveable _moveablePlayer;
-    private IRotateable _rotateablePlayer;
     
     private PlayerMovementDinamicTreeTwoDimensionAnimation _playerMovementAnimation;
 
@@ -23,10 +22,9 @@ public class InputHandlerAllDirections : ITickable, IDisposable, IInput
     private bool _rightPressed;
 
     [Inject]
-    private void Construct(IMoveable moveable, IRotateable rotateable, PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation)
+    private void Construct(IMoveable moveable, PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation)
     {
         _moveablePlayer = moveable;
-        _rotateablePlayer = rotateable;
         _playerControls = new PlayerInputActions();
         _playerMovementAnimation = playerMovementAnimation;
         EnableActions();
@@ -84,19 +82,19 @@ public class InputHandlerAllDirections : ITickable, IDisposable, IInput
     private void OnShiftPressed(InputAction.CallbackContext callbackContext)
     {
         _shiftPressed = true;
+        _moveablePlayer.SetRun(_shiftPressed);
     }
     
     private void OnShiftCanceled(InputAction.CallbackContext callbackContext)
     {
         _shiftPressed = false;
+        _moveablePlayer.SetRun(_shiftPressed);
     }
 
     public void Tick()
     {
         _moveablePlayer.Move(
             moveDirection: new Vector3(_moveDirection.x, 0, _moveDirection.y));
-        _rotateablePlayer.Rotate(rotateDirection: new Vector3(_moveDirection.x, 0,
-            _moveDirection.y));
 
         _playerMovementAnimation.RunPressed = _shiftPressed;
         _playerMovementAnimation.RightPressed = _rightPressed;
