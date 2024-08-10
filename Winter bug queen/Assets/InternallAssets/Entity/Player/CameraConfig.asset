@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
   ReturnSpeed: 15
-  Height: 5
-  RearDistance: 5
+  Height: 6.5
+  RearDistance: 4
   LookOffset: 0
