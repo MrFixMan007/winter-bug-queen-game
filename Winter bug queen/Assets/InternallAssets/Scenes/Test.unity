@@ -2984,14 +2984,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: -2304138314364662392, guid: 34eb6b33b8b9779409b754af06382f14, type: 3}
-  _playerSpawnPoint: {fileID: 1520366961}
   _playerConfig: {fileID: 11400000, guid: 3578e6f10614bf344a6c491a66fbd1a9, type: 2}
-  _slaveCommonBeetleConfig: {fileID: 11400000, guid: 0e19ec1afa2309e419c98b200d883179, type: 2}
-  _cerebralCommonBeetleConfig: {fileID: 11400000, guid: d5d72167c23f23c4f8e4d5edd1b3dfc5, type: 2}
+  _playerSpawnPoint: {fileID: 1520366961}
   _cameraConfig: {fileID: 11400000, guid: eddbd66feba2baf4f92c46f7daa4f85d, type: 2}
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _slaveCommonBeetleConfig: {fileID: 11400000, guid: 0e19ec1afa2309e419c98b200d883179, type: 2}
+  _cerebralCommonBeetleConfig: {fileID: 11400000, guid: d5d72167c23f23c4f8e4d5edd1b3dfc5, type: 2}
+  _enemyMovePoints: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3097,6 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df35c63277534fefb624b4ebf6f52ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
   _returnSpeed: 15
   _height: 6.5
   _rearDistance: 4

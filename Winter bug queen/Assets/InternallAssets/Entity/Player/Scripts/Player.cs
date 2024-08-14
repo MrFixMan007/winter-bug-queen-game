@@ -1,26 +1,18 @@
-using System;
 using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour, ITargetable
+public class Player : EntityMovemableGameobject, ICombat
 {
-    [SerializeField] private CharacterController _characterController;
-
-    private IGravityFallable _gravityMovement;
-    public EntityForwardMovement EntityMovement { get; private set; }
-
-    public Transform Position => transform;
-    public IDamageable Health;
+    [SerializeField]
     public PlayerCombat PlayerCombat;
 
     [Inject]
-    public void Constructor([Inject(Id = "PlayerConfig")] EntityConfig playerConfig, [Inject(Id = "EnemyLayerMask")] LayerMask enemyLayerMask)
+    protected override void Constructor([Inject(Id = "PlayerConfig")] EntityConfig playerConfig,
+        [Inject(Id = "EnemyLayerMask")] LayerMask enemyLayerMask)
     {
-        EntityMovement = new EntityForwardMovement(playerConfig.RotationSpeed, playerConfig.MoveSpeed,
-            playerConfig.RunSpeed, gameObject);
-        _gravityMovement = new GravityMovement(playerConfig.GravityForce, _characterController);
-        Health = new SimpleHealthSystem(playerConfig.MaxHp);
+        base.Constructor(entityConfig: playerConfig, enemyLayerMask: enemyLayerMask);
+
         PlayerCombat = new PlayerCombat(lightReloadTime: 5, lightAttackRange: 5, damageLight: 5, strongReloadTime: 5,
             strongAttackRange: 4, strongAttackDistance: 5, damageStrong: 10, attackPoint: gameObject.transform,
             enemyLayerMask);
@@ -31,9 +23,24 @@ public class Player : MonoBehaviour, ITargetable
         _characterController ??= GetComponent<CharacterController>();
     }
 
-    private void Update()
+    private new void Update()
     {
-        _gravityMovement.Fall();
+        base.Update();
         PlayerCombat.AddReloadTick();
+    }
+
+    public bool LightAttack()
+    {
+        throw new System.NotImplementedException(); //TODO
+    }
+
+    public bool StrongAttack()
+    {
+        throw new System.NotImplementedException(); //TODO
+    }
+
+    public void AddReloadTick()
+    {
+        throw new System.NotImplementedException(); //TODO
     }
 }

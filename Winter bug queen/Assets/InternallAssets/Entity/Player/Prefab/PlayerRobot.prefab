@@ -104,9 +104,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.8
+  m_Height: 1.8093884
   m_Direction: 1
-  m_Center: {x: 0, y: 0.88, z: 0}
+  m_Center: {x: 0, y: -0.22315943, z: 0}
 --- !u!114 &-2304138314364662392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +120,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 4962740063705873058}
+  _gravityMovement:
+    _currentAttractionCharacter: 0
+    _gravityForce: 0
+  EntityMovement:
+    MoveSpeed: 0
+    RunSpeed: 0
+    RotateSpeed: 0
+    _isRunning: 0
 --- !u!114 &8907450311523478697
 MonoBehaviour:
   m_ObjectHideFlags: 0

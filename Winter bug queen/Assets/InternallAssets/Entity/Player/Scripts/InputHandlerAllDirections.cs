@@ -22,7 +22,7 @@ public class InputHandlerAllDirections : ITickable, IDisposable, IInput
     private bool _rightPressed;
 
     [Inject]
-    private void Construct(IMoveable moveable, PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation)
+    private void Construct([Inject(Id = "Player")] IMoveable moveable, [Inject(Id = "Player")] PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation)
     {
         _moveablePlayer = moveable;
         _playerControls = new PlayerInputActions();

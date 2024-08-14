@@ -3,7 +3,8 @@ using Zenject;
 
 public class FollowingCamera : MonoBehaviour
 {
-    private ITargetable _target;
+    [SerializeField]
+    private EntityMovemableGameobject _target;
 
     [Header("Camera Properties")] [SerializeField, Range(0, 100)]
     private float _returnSpeed;
@@ -15,7 +16,7 @@ public class FollowingCamera : MonoBehaviour
     private Vector3 _currentVector;
 
     [Inject]
-    private void Construct(ITargetable targetable, CameraConfig cameraConfig)
+    private void Construct([Inject(Id = "Camera")] EntityMovemableGameobject targetable, CameraConfig cameraConfig)
     {
         _target = targetable;
         _returnSpeed = cameraConfig.ReturnSpeed;

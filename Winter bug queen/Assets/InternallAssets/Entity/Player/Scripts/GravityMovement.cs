@@ -1,9 +1,12 @@
 using UnityEngine;
 
+[System.Serializable]
 public class GravityMovement : IGravityFallable
 {
     private readonly CharacterController _characterController;
+    [SerializeField]
     private float _currentAttractionCharacter = 0;
+    [SerializeField]
     private float _gravityForce;
 
     public GravityMovement(float gravityForce, CharacterController characterController)

@@ -7,9 +7,8 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
 {
     private PlayerInputActions _playerControls;
     private Vector2 _moveDirection;
-
-    private IMoveable _moveablePlayer;
-    private IRotateable _rotateablePlayer;
+    
+    private EntityMovemableGameobject _moveableEntity;
     private ICombat _combat;
 
     private PlayerMovementDinamicTreeTwoDimensionAnimation _playerMovementAnimation;
@@ -22,11 +21,10 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
     private bool _forwardPressed;
 
     [Inject]
-    private void Construct(IMoveable moveable, IRotateable rotateable,
-        PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation, ICombat combat)
+    private void Construct([Inject(Id = "Player")] EntityMovemableGameobject moveableEntity,
+        [Inject(Id = "Player")] PlayerMovementDinamicTreeTwoDimensionAnimation playerMovementAnimation, [Inject(Id = "Player")] ICombat combat)
     {
-        _moveablePlayer = moveable;
-        _rotateablePlayer = rotateable;
+        _moveableEntity = moveableEntity;
         _combat = combat;
         _playerControls = new PlayerInputActions();
         _playerMovementAnimation = playerMovementAnimation;
@@ -66,13 +64,13 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
     private void OnShiftPressed(InputAction.CallbackContext callbackContext)
     {
         _shiftPressed = true;
-        _moveablePlayer.SetRun(_shiftPressed);
+        _moveableEntity.SetRun(_shiftPressed);
     }
 
     private void OnShiftCanceled(InputAction.CallbackContext callbackContext)
     {
         _shiftPressed = false;
-        _moveablePlayer.SetRun(_shiftPressed);
+        _moveableEntity.SetRun(_shiftPressed);
     }
     
     private void OnMouseClick(InputAction.CallbackContext callbackContext)
@@ -104,9 +102,9 @@ public class InputHandlerOnlyForward : ITickable, IDisposable, IInput
 
     public void Tick()
     {
-        _moveablePlayer.Move(
+        _moveableEntity.Move(
             moveDirection: new Vector3(_moveDirection.x, 0, _moveDirection.y));
-        _rotateablePlayer.Rotate(rotateDirection: new Vector3(_moveDirection.x, 0,
+        _moveableEntity.Rotate(rotateDirection: new Vector3(_moveDirection.x, 0,
             _moveDirection.y));
 
         _playerMovementAnimation.RunPressed = _shiftPressed;

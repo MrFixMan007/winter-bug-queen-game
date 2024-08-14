@@ -1,21 +1,26 @@
 using UnityEngine;
-using Zenject;
 
+[System.Serializable]
 public class PlayerCombat : ICombat
 {
-    public float LightReloadTime = 2f;
-    public float LightAttackRange = 2f;
-    private bool _canHitLight = true;
-    public float DamageLight = 100;
+    [Header("Light Attack settings")]
+    [SerializeField] private float _lightReloadTime;
+    [SerializeField] private float _lightAttackRange;
+    [SerializeField] private float _damageLight;
+    [Space]
+    [SerializeField] private bool _canHitLight = true;
 
-    public float StrongReloadTime = 5f;
-    public float StrongAttackRange = 1f;
-    public float StrongAttackDistance = 5f;
-    private bool _canHitStrong = true;
-    public float DamageStrong = 500;
+    [Header("Strong Attack settings")]
+    [SerializeField] private float _strongReloadTime;
+    [SerializeField] private float _strongAttackRange;
+    [SerializeField] private float _strongAttackDistance;
+    [SerializeField] private float _damageStrong;
+    [Space]
+    [SerializeField] private bool _canHitStrong = true;
 
-    public Transform AttackPoint;
-    public LayerMask EnemyLayerMask;
+    [Header("Other settings")]
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private LayerMask _enemyLayerMask;
 
     private float _lightAttackTick;
     private float _strongAttackTick;
@@ -24,15 +29,15 @@ public class PlayerCombat : ICombat
         float strongAttackRange, float strongAttackDistance, float damageStrong, Transform attackPoint,
         LayerMask enemyLayerMask)
     {
-        LightReloadTime = lightReloadTime;
-        LightAttackRange = lightAttackRange;
-        DamageLight = damageLight;
-        StrongReloadTime = strongReloadTime;
-        StrongAttackRange = strongAttackRange;
-        StrongAttackDistance = strongAttackDistance;
-        DamageStrong = damageStrong;
-        AttackPoint = attackPoint;
-        EnemyLayerMask = enemyLayerMask;
+        _lightReloadTime = lightReloadTime;
+        _lightAttackRange = lightAttackRange;
+        _damageLight = damageLight;
+        _strongReloadTime = strongReloadTime;
+        _strongAttackRange = strongAttackRange;
+        _strongAttackDistance = strongAttackDistance;
+        _damageStrong = damageStrong;
+        _attackPoint = attackPoint;
+        _enemyLayerMask = enemyLayerMask;
         //TODO: предполагается что перезарядка будет завязана на оружии
     }
 
@@ -41,7 +46,7 @@ public class PlayerCombat : ICombat
         if (!_canHitLight)
         {
             _lightAttackTick += Time.deltaTime;
-            if (_lightAttackTick >= LightReloadTime)
+            if (_lightAttackTick >= _lightReloadTime)
             {
                 _lightAttackTick = 0;
                 _canHitLight = true;
@@ -51,7 +56,7 @@ public class PlayerCombat : ICombat
         if (!_canHitStrong)
         {
             _strongAttackTick += Time.deltaTime;
-            if (_strongAttackTick >= StrongReloadTime)
+            if (_strongAttackTick >= _strongReloadTime)
             {
                 _strongAttackTick = 0;
                 _canHitStrong = true;
@@ -63,11 +68,11 @@ public class PlayerCombat : ICombat
     {
         if (_canHitLight)
         {
-            Collider[] hitEnemies = Physics.OverlapSphere(AttackPoint.position, LightAttackRange, EnemyLayerMask);
+            Collider[] hitEnemies = Physics.OverlapSphere(_attackPoint.position, _lightAttackRange, _enemyLayerMask);
             foreach (Collider enemy in hitEnemies)
             {
                 Debug.Log("enemy was hit");
-                enemy.GetComponent<BeetleEnemy>().Health.Hit(DamageLight);
+                enemy.GetComponent<BeetleEnemy>().Health.Hit(_damageLight);
             }
 
             _canHitLight = false;
@@ -81,14 +86,14 @@ public class PlayerCombat : ICombat
     {
         if (_canHitStrong)
         {
-            Collider[] hitEnemies = Physics.OverlapCapsule(AttackPoint.position,
-                new Vector3(AttackPoint.position.x, AttackPoint.position.y,
-                    AttackPoint.position.z + StrongAttackDistance),
-                StrongAttackRange, EnemyLayerMask);
+            Collider[] hitEnemies = Physics.OverlapCapsule(_attackPoint.position,
+                new Vector3(_attackPoint.position.x, _attackPoint.position.y,
+                    _attackPoint.position.z + _strongAttackDistance),
+                _strongAttackRange, _enemyLayerMask);
             foreach (Collider enemy in hitEnemies)
             {
                 Debug.Log("enemy was hit strong");
-                enemy.GetComponent<BeetleEnemy>().Health.Hit(DamageStrong);
+                enemy.GetComponent<BeetleEnemy>().Health.Hit(_damageStrong);
             }
 
             _canHitStrong = false;
