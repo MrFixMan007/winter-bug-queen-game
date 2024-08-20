@@ -54,7 +54,7 @@ public class PointToPointMovement : MonoBehaviour
         _characterController.Move(direction * Speed * Time.deltaTime);
 
         // Проверка на достижение точки
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        if (Vector3.Distance(transform.position, targetPosition) < _characterController.radius / 2)
         {
             _isMoving = false;
             StartCoroutine(WaitAndMoveToNextPoint());
